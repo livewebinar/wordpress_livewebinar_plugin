@@ -1,0 +1,587 @@
+# Copyright (C) 2022 RTCLab <admin@rtclab.com>
+# This file is distributed under the same license as the LiveWebinar plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: LiveWebinar 1.2.4\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/livewebinar\n"
+"POT-Creation-Date: 2022-08-02T15:08:38+00:00\n"
+"PO-Revision-Date: 2022-08-02 17:09+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 "
+"|| n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.1.1\n"
+"X-Domain: livewebinar\n"
+
+#. Plugin Name of the plugin
+#: admin/Event_Post.php:69
+msgid "LiveWebinar"
+msgstr "LiveWebinar"
+
+#. Plugin URI of the plugin
+msgid "https://www.livewebinar.com/"
+msgstr "https://www.livewebinar.com/pl"
+
+#. Description of the plugin
+msgid "Webinar Software. Best Platform for Webinars - LiveWebinar.com"
+msgstr ""
+"Oprogramowanie do webinarów. Najlepsza platforma do prowadzenia webinarów - "
+"LiveWebinar.com"
+
+#. Author of the plugin
+msgid "RTCLab <admin@rtclab.com>"
+msgstr "RTCLab <admin@rtclab.com>"
+
+#. Author URI of the plugin
+msgid "https://www.rtclab.com/"
+msgstr "https://www.rtclab.com/"
+
+#: admin/Event_Post.php:67
+msgid "LiveWebinar event posts"
+msgstr "Wpisy wydarzeń LiveWebinar"
+
+#: admin/Event_Post.php:68
+msgid "LiveWebinar event post"
+msgstr "Wpis wydarzenia LiveWebinar"
+
+#: admin/Event_Post.php:70
+msgid "Add new"
+msgstr "Dodaj nowy"
+
+#: admin/Event_Post.php:71
+msgid "Add new event"
+msgstr "Dodaj nowe wydarzenie"
+
+#: admin/Event_Post.php:72
+msgid "New event"
+msgstr "Nowe wydarzenie"
+
+#: admin/Event_Post.php:73
+msgid "Edit event"
+msgstr "Edytuj wydarzenie"
+
+#: admin/Event_Post.php:74
+msgid "View event"
+msgstr "Zobacz wydarzenie"
+
+#: admin/Event_Post.php:75
+msgid "All events"
+msgstr "Wszystkie wydarzenia"
+
+#: admin/Event_Post.php:76
+msgid "Search events"
+msgstr "Szukaj wydarzeń"
+
+#: admin/Event_Post.php:77
+msgid "No events found."
+msgstr "Nie znaleziono wydarzeń."
+
+#: admin/Event_Post.php:78
+msgid "No events found in Trash."
+msgstr "Nie znaleziono wydarzeń w Koszu."
+
+#: admin/Event_Post.php:113
+msgid "LiveWebinar event post details"
+msgstr "Szczegóły wpisu wydarzenia LiveWebinar"
+
+#: admin/Livewebinar_Api.php:186
+msgid "API connection established properly!"
+msgstr "Połączenie z API nawiązane!"
+
+#: admin/Livewebinar_Api.php:188
+msgid "Error occured: "
+msgstr "Wystąpił błąd: "
+
+#: admin/Livewebinar_Api.php:221
+msgid "Credentials have been cleared!"
+msgstr "Dane uwierzytelniające zostały usunięte!"
+
+#: admin/Livewebinar_Api.php:575
+msgid "Could not find error message, original response: "
+msgstr "Nie udało się znaleźć komunikatu błędu, oryginalna odpowiedź: "
+
+#: admin/Livewebinar_Api.php:578
+msgid "JSON decode error: "
+msgstr "Błąd dekodowania JSON: "
+
+#: admin/Livewebinar_Api.php:578
+msgid "Original response: "
+msgstr "Oryginalna odpowiedź: "
+
+#: admin/Livewebinar_Api.php:620
+msgid "Livewebinar error: "
+msgstr "Błąd LiveWebinar: "
+
+#: admin/Settings.php:23
+msgid "Log file contents removed"
+msgstr "Zawartość pliku logów usunięta"
+
+#: admin/Settings.php:36 admin/Settings.php:37 includes/Bootstrap.php:184
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: admin/Settings.php:101 includes/Bootstrap.php:63
+msgid "Show"
+msgstr "Pokaż"
+
+#: includes/Blocks.php:83
+msgid "Title (optional)"
+msgstr "Tytuł (opcjonalny)"
+
+#: includes/Blocks.php:84
+msgid "Title"
+msgstr "Tytuł"
+
+#: includes/Blocks.php:85
+msgid "Selected room"
+msgstr "Wybrany pokój"
+
+#: includes/Blocks.php:86
+msgid "--- select one ---"
+msgstr "--- wybierz jeden ---"
+
+#: includes/Blocks.php:87
+msgid "Show join link"
+msgstr "Pokaż link dołączenia do spotkania"
+
+#: includes/Blocks.php:88
+msgid "Show link only"
+msgstr "Pokaż jedynie link"
+
+#: includes/Blocks.php:89
+msgid "Select image"
+msgstr "Wybierz obraz"
+
+#: includes/Blocks.php:90
+msgid "Caption (optional)"
+msgstr "Podpis (opcjonalny)"
+
+#: includes/Blocks.php:91
+msgid "Caption"
+msgstr "Podpis"
+
+#: includes/Blocks.php:102
+msgid "LiveWebinar - Embed room"
+msgstr "LiveWebinar - zagnieźdź pokój"
+
+#: includes/Blocks.php:118
+msgid "Embeds room"
+msgstr "Zagnieżdża pokój"
+
+#: includes/Blocks.php:127
+msgid "LiveWebinar - Room info"
+msgstr "LiveWebinar - informacje o pokoju"
+
+#: includes/Blocks.php:143
+msgid "Shows room info"
+msgstr "Pokazuje informacje o pokoju"
+
+#: includes/Blocks.php:152
+msgid "LiveWebinar - Image from storage"
+msgstr "LiveWebinar - Obraz"
+
+#: includes/Blocks.php:174
+msgid "Shows image from LiveWebinar storage"
+msgstr "Wyświetla obraz z LiveWebinar"
+
+#: includes/Bootstrap.php:64
+msgid "Hide"
+msgstr "Ukryj"
+
+#: includes/Storage.php:35
+msgid "No image selected"
+msgstr "Nie wybrano żadnego obrazu"
+
+#: includes/views/blocks/embed-room.php:54
+msgid "Open in new tab"
+msgstr "Otwórz w nowej zakładce"
+
+#: includes/views/blocks/room-info.php:11
+msgid "Room name:"
+msgstr "Nazwa pokoju:"
+
+#: includes/views/blocks/room-info.php:20
+msgid "Starts at:"
+msgstr "Data rozpoczęcia:"
+
+#: includes/views/blocks/room-info.php:24
+msgid "Duration:"
+msgstr "Czas trwania:"
+
+#: includes/views/blocks/room-info.php:25 templates/event-post.php:173
+msgid "minutes"
+msgstr "minuty"
+
+#: includes/views/blocks/room-info.php:28
+msgid "Timezone:"
+msgstr "Strefa czasowa:"
+
+#: includes/views/blocks/room-info.php:34
+msgid "Agenda:"
+msgstr "Program wydarzenia:"
+
+#: includes/views/blocks/room-info.php:40
+msgid "Join now"
+msgstr "Dołącz teraz"
+
+#: includes/views/blocks/room-info.php:42
+msgid "Enter the room"
+msgstr "Wejdź do pokoju"
+
+#: includes/views/event-post-edit.php:20 includes/views/event-post-edit.php:29
+msgid "Error occurred while decoding JSON response from API:"
+msgstr "Wystąpił błąd podczas dekodowania odpowiedzi JSON z API:"
+
+#: includes/views/event-post-edit.php:49
+msgid "Errors"
+msgstr "Błędy"
+
+#: includes/views/event-post-edit.php:54
+msgid "Info"
+msgstr "Info"
+
+#: includes/views/event-post-edit.php:55
+msgid "Not bound to Livewebinar event yet"
+msgstr ""
+"Wpis nie jest jeszcze powiązany z wydarzeniem na platformie LiveWebinar"
+
+#: includes/views/event-post-edit.php:73
+msgid "Event name"
+msgstr "Nazwa wydarzenia"
+
+#: includes/views/event-post-edit.php:83
+msgid "Event token"
+msgstr "Token wydarzenia"
+
+#: includes/views/event-post-edit.php:92
+msgid "Event url"
+msgstr "Url wydarzenia"
+
+#: includes/views/event-post-edit.php:107
+msgid "Embed room"
+msgstr "Zagnieźdź pokój"
+
+#: includes/views/event-post-edit.php:120
+msgid "Type"
+msgstr "Typ"
+
+#: includes/views/event-post-edit.php:122
+msgid "Scheduled"
+msgstr "Zaplanowane"
+
+#: includes/views/event-post-edit.php:131 templates/event-post.php:164
+msgid "Start date"
+msgstr "Data rozpoczęcia"
+
+#: includes/views/event-post-edit.php:141
+msgid "Duration in minutes"
+msgstr "Czas trwania w minutach"
+
+#: includes/views/event-post-edit.php:151 templates/event-post.php:168
+msgid "Timezone"
+msgstr "Strefa czasowa"
+
+#: includes/views/event-post-edit.php:167
+msgid "Form"
+msgstr "Formularz"
+
+#: includes/views/event-post-edit.php:170
+msgid "---select form---"
+msgstr "---wybierz formularz---"
+
+#: includes/views/event-post-edit.php:174
+msgid "registration enabled"
+msgstr "rejestracja włączona"
+
+#: includes/views/event-post-edit.php:191
+msgid "Restrict access to room"
+msgstr "Ogranicz dostęp do pokoju"
+
+#: includes/views/event-post-edit.php:207
+msgid "Waiting room"
+msgstr "Poczekalnia"
+
+#: includes/views/event-post-edit.php:224
+msgid "Password protected"
+msgstr "Ochrona hasłem"
+
+#: includes/views/event-post-edit.php:235 includes/views/settings.php:56
+msgid "Password"
+msgstr "Hasło"
+
+#: includes/views/event-post-edit.php:251
+msgid "Password token protected room"
+msgstr "Ochrona tokenami dostępu"
+
+#: includes/views/event-post-edit.php:263
+msgid "Password tokens amount"
+msgstr "Liczba tokenów dostępu"
+
+#: includes/views/event-post-edit.php:280
+msgid "Send thank you e-mail after event"
+msgstr "Wyślij e-mail z podziękowaniami po zakończeniu wydarzenia"
+
+#: includes/views/event-post-edit.php:297
+msgid "Disable notifications"
+msgstr "Wyłącz powiadomienia"
+
+#: includes/views/event-post-edit.php:313
+msgid "Initial audio mode"
+msgstr "Początkowy tryb audio"
+
+#: includes/views/event-post-edit.php:321
+msgid "Discussion"
+msgstr "Dyskusja"
+
+#: includes/views/event-post-edit.php:322
+msgid ""
+"All participants can talk. For larger sessions, up to 25 participants can "
+"talk at the same time. Others listen."
+msgstr ""
+"Wszyscy uczestnicy mogą mówić. Podczas większych sesji, do 25 uczestników "
+"może mówić równocześnie. Pozostali słuchają."
+
+#: includes/views/event-post-edit.php:332
+msgid "Presentation"
+msgstr "Prezentacja"
+
+#: includes/views/event-post-edit.php:333
+msgid "Only presenters are allowed to talk. Participants listen."
+msgstr "Tylko prezenterzy mają możliwość wypowiedzi. Uczestnicy słuchają."
+
+#: includes/views/event-post-edit.php:343
+msgid "Raise hand"
+msgstr "Zgłoś się"
+
+#: includes/views/event-post-edit.php:344
+msgid "Only presenters can talk. Participants can ask for permission to speak."
+msgstr ""
+"Tylko prezenterzy mają możliwość wypowiedzi. Uczestnicy mogą poprosić o "
+"prawo zabrania głosu."
+
+#: includes/views/event-post-edit.php:355
+msgid "Classroom"
+msgstr "Klasa"
+
+#: includes/views/event-post-edit.php:356
+msgid ""
+"The presenters can see everyone, but the attendees can only see the "
+"presenters."
+msgstr "Prezenterzy widzą wszystkich, ale uczestnicy widzą tylko prezenterów."
+
+#: includes/views/event-post-edit.php:366
+msgid "Room layout"
+msgstr "Układ pokoju"
+
+#: includes/views/event-post-edit.php:398
+msgid "Room template"
+msgstr "Szablon pokoju"
+
+#: includes/views/event-post-edit.php:406
+msgid "Webinar"
+msgstr "Webinar"
+
+#: includes/views/event-post-edit.php:407
+msgid ""
+"Interface most suitable for webinars and presentations in large groups with "
+"all features at hand."
+msgstr ""
+"Interfejs najbardziej odpowiedni do webinarów i prezentacji w dużych grupach "
+"z wszystkimi funkcjami pod ręką."
+
+#: includes/views/event-post-edit.php:417
+msgid "Meeting"
+msgstr "Spotkanie"
+
+#: includes/views/event-post-edit.php:418
+msgid ""
+"An alternative, clean interface layout- like hangouts. Best for meetings in "
+"small to medium group."
+msgstr ""
+"Alternatywny, czysty układ interfejsu - jak w przypadku hangoutów. Najlepszy "
+"do spotkań w małej i średniej grupie."
+
+#: includes/views/event-post-edit.php:439 templates/event-post.php:176
+msgid "Agenda"
+msgstr "Program wydarzenia"
+
+#: includes/views/event-post-edit.php:452 templates/event-post.php:183
+msgid "Presenters"
+msgstr "Prezenterzy"
+
+#: includes/views/settings.php:5
+msgid "Successfully Updated."
+msgstr "Aktualizacja powiodła się."
+
+#: includes/views/settings.php:7
+msgid "Dismiss this notice."
+msgstr "Odrzuć to powiadomienie."
+
+#: includes/views/settings.php:17
+msgid "API credentials"
+msgstr "Dane uwierzytelniające API"
+
+#: includes/views/settings.php:23
+msgid "Additional options"
+msgstr "Dodatkowe opcje"
+
+#: includes/views/settings.php:29
+msgid "Support"
+msgstr "Wsparcie"
+
+#: includes/views/settings.php:35
+msgid "Logs"
+msgstr "Logi"
+
+#: includes/views/settings.php:47
+msgid "E-mail Address"
+msgstr "Adres e-mail"
+
+#: includes/views/settings.php:66
+msgid "Client ID"
+msgstr "ID użytkownika"
+
+#: includes/views/settings.php:76
+msgid "Client Secret"
+msgstr "Sekret użytkownika"
+
+#: includes/views/settings.php:85
+msgid "Clear API credentials"
+msgstr "Usuń dane uwierzytelniające API"
+
+#: includes/views/settings.php:91
+msgid "If you don't know where to get Client ID and Client Secret from, go"
+msgstr "Jeśli nie wiesz skąd wziąć ID oraz sekret użytkownika, udaj się"
+
+#: includes/views/settings.php:93
+msgid "here"
+msgstr "tutaj"
+
+#: includes/views/settings.php:109
+msgid "Enable error logs"
+msgstr "Aktywuj logowanie błędów"
+
+#: includes/views/settings.php:125
+msgid "Enable response logs (will grow fast)"
+msgstr "Aktywuj logownie odpowiedzi API (rozmiar rośnie szybko)"
+
+#: includes/views/settings.php:141
+msgid "Do not deactivate events in LiveWebinar when removing LiveWebinar post"
+msgstr ""
+"Nie dezaktywuj wydarzeń w LiveWebinar podczas usuwania wpisu LiveWebinar"
+
+#: includes/views/settings.php:156
+msgid "Logs are disabled, enable them in settings"
+msgstr "Logi są wyłączone, aktywuj je w ustawieniach"
+
+#: includes/views/settings.php:162
+msgid "Download response log"
+msgstr "Pobierz log odpowiedzi"
+
+#: includes/views/settings.php:166
+msgid "Remove response logs"
+msgstr "Usuń logi odpowiedzi"
+
+#: includes/views/settings.php:174
+msgid "Download error log"
+msgstr "Pobierz log błędów"
+
+#: includes/views/settings.php:178
+msgid "Remove error logs"
+msgstr "Usuń logi błędów"
+
+#: includes/views/settings.php:186
+msgid "Save Changes"
+msgstr "Zapisz zmiany"
+
+#: includes/views/settings.php:187
+msgid "Test API Connection"
+msgstr "Przetestuj połączenie z API"
+
+#: includes/views/settings.php:190
+msgid "Don’t have account yet?"
+msgstr "Nie posiadasz jeszcze konta?"
+
+#: includes/views/settings.php:192
+msgid "Create FREE account"
+msgstr "Utwórz DARMOWE konto"
+
+#: includes/views/settings.php:196
+msgid "Have questions?"
+msgstr "Masz pytania?"
+
+#: includes/views/settings.php:198
+msgid "Contact us!"
+msgstr "Skontaktuj się z nami!"
+
+#: includes/views/settings.php:209
+msgid "Test Connection"
+msgstr "Przetestuj połączenie"
+
+#: includes/views/settings.php:218
+msgid "Close"
+msgstr "Zamknij"
+
+#: includes/Widget.php:58 includes/Widget.php:140
+msgid "Error occurred, make sure you have selected proper widget."
+msgstr "Wystąpił błąd, upewnij się, że wybrałeś właściwy widget."
+
+#: includes/Widget.php:64 includes/Widget.php:146
+msgid "No widget selected"
+msgstr "Nie wybrano żadnego widżetu"
+
+#: templates/event-post.php:147
+msgid "Details"
+msgstr "Szczegóły"
+
+#: templates/event-post.php:152
+msgid "Widget name"
+msgstr "Nazwa wydarzenia"
+
+#: templates/event-post.php:156
+msgid "Widget token"
+msgstr "Token wydarzenia"
+
+#: templates/event-post.php:160
+msgid "Event type"
+msgstr "Typ wydarzenia"
+
+#: templates/event-post.php:172
+msgid "Duration"
+msgstr "Czas trwania"
+
+#: templates/event-post.php:190
+msgid "Open in new window"
+msgstr "Otwórz w nowym oknie"
+
+#: templates/event-post.php:207
+msgid "No widget bound to the post"
+msgstr "Brak wydarzenia przypisanego do wpisu"
+
+#~ msgid "Displaying last 500 lines"
+#~ msgstr "Wyświetlane jest ostatnie 500 linii"
+
+#~ msgid "Nothing to show"
+#~ msgstr "Nie ma nic do pokazania"
+
+#~ msgid "Exec is disabled, cannot display logs"
+#~ msgstr "Nie można wyświetlić logów, ponieważ exec jest wyłączony"
+
+#~ msgid "Join in new tab"
+#~ msgstr "Dołącz w nowej zakładce"
+
+#~ msgid "Click here"
+#~ msgstr "Kliknij tutaj"
+
+#~ msgid "Permanent"
+#~ msgstr "Stałe"
+
+#~ msgid "Custom leave page URL"
+#~ msgstr "Własny URL do przekierowania po zakończeniu wydarzenia"
+
+#~ msgid "Layout"
+#~ msgstr "Układ"

@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-develop',
+        'version' => 'dev-develop',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => '11a7fd511ff8c636ded477b057b8280bafc2a8f3',
+        'name' => 'root/livewebinar',
+        'dev' => true,
+    ),
+    'versions' => array(
+        'root/livewebinar' => array(
+            'pretty_version' => 'dev-develop',
+            'version' => 'dev-develop',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => '11a7fd511ff8c636ded477b057b8280bafc2a8f3',
+            'dev_requirement' => false,
+        ),
+        'select2/select2' => array(
+            'pretty_version' => '4.0.13',
+            'version' => '4.0.13.0',
+            'type' => 'component',
+            'install_path' => __DIR__ . '/../select2/select2',
+            'aliases' => array(),
+            'reference' => '45f2b83ceed5231afa7b3d5b12b58ad335edd82e',
+            'dev_requirement' => false,
+        ),
+        'ttskch/select2-bootstrap4-theme' => array(
+            'pretty_version' => '1.5.2',
+            'version' => '1.5.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ttskch/select2-bootstrap4-theme',
+            'aliases' => array(),
+            'reference' => '03fe405b21e4f8165a617b2b269346b1ffdc3619',
+            'dev_requirement' => false,
+        ),
+    ),
+);

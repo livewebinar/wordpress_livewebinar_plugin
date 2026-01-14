@@ -1,0 +1,59 @@
+@font-face {
+  font-family: 'LayoutsIcons';
+  src:
+    url('../../fonts/layoutsIcons/LayoutsIcons.ttf?7ovuit') format('truetype'),
+    url('../../fonts/layoutsIcons/LayoutsIcons.woff?7ovuit') format('woff'),
+    url('../../fonts/layoutsIcons/LayoutsIcons.svg?7ovuit#LayoutsIcons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="layouts-icons--"], [class*=" layouts-icons--"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'LayoutsIcons', sans-serif !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.layouts-icons--1:before {
+  content: "\e900";
+}
+.layouts-icons--2:before {
+  content: "\e901";
+}
+.layouts-icons--3:before {
+  content: "\e902";
+}
+.layouts-icons--4:before {
+  content: "\e903";
+}
+.layouts-icons--5:before {
+  content: "\e904";
+}
+.layouts-icons--6:before {
+  content: "\e905";
+}
+.layouts-icons--7:before {
+  content: "\e906";
+}
+.layouts-icons--8:before {
+  content: "\e907";
+}
+.layouts-icons--9:before {
+  content: "\e908";
+}
+.layouts-icons--10:before {
+  content: "\e909";
+}
+.layouts-icons--31:before {
+  content: "\e90a";
+}
