@@ -16,7 +16,7 @@ if (!empty($livewebinar_event_id) && is_numeric($livewebinar_event_id) && $livew
             $widget_object = json_decode($livewebinar_widget, false, 512, JSON_THROW_ON_ERROR)->data;
             $current_user = wp_get_current_user();
         } catch (\JsonException $e) {
-            echo '<div class="error">' . esc_html(__('Error occurred while decoding JSON response from API:', 'livewebinar') . ' ' . $e->getMessage()) . '</div>';
+            echo '<div class="error">' . esc_html(__('Error occurred while decoding JSON response from API:', 'livewebinar') . ' event-post.php' . $e->getMessage()) . '</div>';
         }
     } else {
         echo '<div class="error">' . esc_html(\Livewebinar\Admin\Livewebinar_Api::instance()->error_message) . '</div>';
@@ -46,7 +46,7 @@ if (!empty($fields['presenters'])) {
                 $presenter_object = json_decode($presenter, false, 512, JSON_THROW_ON_ERROR)->data;
                 $presenters[$presenter_id] = $presenter_object->first_name . ' ' . $presenter_object->last_name;
             } catch (\JsonException $e) {
-                echo '<div class="error">' . esc_html(__('Error occurred while decoding JSON response from API:', 'livewebinar') . ' ' . $e->getMessage()) . '</div>';
+                echo '<div class="error">' . esc_html(__('Error occurred while decoding JSON response from API:', 'livewebinar') . ' event-post.php' . $e->getMessage()) . '</div>';
             }
         }
     }

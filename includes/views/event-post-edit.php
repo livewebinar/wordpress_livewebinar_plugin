@@ -17,7 +17,7 @@ if (!Livewebinar_Api::instance()->is_error) {
     try {
         $forms = json_decode($forms_response_string, false, 512, JSON_THROW_ON_ERROR)->data;
     } catch (JsonException $e) {
-        echo '<div class="error">' . esc_html(__('Error occurred while decoding JSON response from API:', 'livewebinar') . ' ' . $e->getMessage()) . '</div>';
+        echo '<div class="error">' . esc_html(__('Error occurred while decoding JSON response from API:', 'livewebinar') . ' event-post-edit.php' . $e->getMessage()) . '</div>';
     }
 }
 $presenters_response_string = Livewebinar_Api::instance()->list_presenters();
@@ -26,7 +26,7 @@ if (!Livewebinar_Api::instance()->is_error) {
     try {
         $presenters = json_decode($presenters_response_string, false, 512, JSON_THROW_ON_ERROR)->data;
     } catch (JsonException $e) {
-        echo '<div class="error">' . esc_html(__('Error occurred while decoding JSON response from API:', 'livewebinar') . ' ' . $e->getMessage()) . '</div>';
+        echo '<div class="error">' . esc_html(__('Error occurred while decoding JSON response from API:', 'livewebinar') . ' event-post-edit.php' . $e->getMessage()) . '</div>';
     }
 }
 $errors = get_post_meta($post->ID, '_livewebinar_event_post_errors', true);

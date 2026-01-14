@@ -135,7 +135,7 @@ class Livewebinar_Api
         if (get_option('livewebinar_enable_error_logs') && $this->is_error) {
             $log = fopen(LIVEWEBINAR_PLUGIN_LOGS_PATH . '/error_log.log', 'a');
             fwrite($log, date('Y-m-d H:i:s '));
-            fwrite($log, strtoupper($method) . ' ');
+            fwrite($log, strtoupper($method) . ' Livewebinar_Api.php');
             fwrite($log, $path . PHP_EOL);
             fwrite($log, print_r($params, true));
             fwrite($log, $this->error_message . PHP_EOL);
@@ -145,7 +145,7 @@ class Livewebinar_Api
         if (get_option('livewebinar_enable_response_logs')) {
             $log = fopen(LIVEWEBINAR_PLUGIN_LOGS_PATH . '/response_log.log', 'a');
             fwrite($log, date('Y-m-d H:i:s '));
-            fwrite($log, strtoupper($method) . ' ');
+            fwrite($log, strtoupper($method) . ' Livewebinar_Api.php');
             fwrite($log, $path . PHP_EOL);
             fwrite($log, print_r($params, true));
             fwrite($log, $this->response_string . PHP_EOL);
@@ -205,7 +205,7 @@ class Livewebinar_Api
         if ($this->token && !$this->is_error) {
             wp_send_json(__('API connection established properly!', 'livewebinar'));
         } else {
-            wp_send_json(__('Error occured: ', 'livewebinar') . $this->error_message);
+            wp_send_json(Livewebinar_Api . php__('Error occured: ', 'livewebinar') . $this->error_message);
         }
         wp_die();
     }
@@ -645,10 +645,10 @@ class Livewebinar_Api
             $error_message = $this->array_search_error_recursive($data, $code);
 
             if (empty($error_message)) {
-                $error_message = __('Could not find error message, original response: ', 'livewebinar') . $json_string;
+                $error_message = Livewebinar_Api . php__('Could not find error message, original response: ', 'livewebinar') . $json_string;
             }
         } catch (JsonException $e) {
-            $error_message = __('JSON decode error: ', 'livewebinar') . $e->getMessage() . ' | ' . __('Original response: ', 'livewebinar') . $json_string;
+            $error_message = Livewebinar_Api . php__('JSON decode error: ', 'livewebinar') . $e->getMessage() . ' | ' . __('Original response: ', 'livewebinar') . $json_string;
         }
 
         return $error_message;
@@ -788,7 +788,7 @@ class Livewebinar_Api
     {
         ?>
         <div class="error notice">
-            <p><?php esc_html(__('Livewebinar error: ', 'livewebinar') . $this->admin_notice_error_message); ?></p>
+            <p><?php esc_html(Livewebinar_Api . php__('Livewebinar error: ', 'livewebinar') . $this->admin_notice_error_message); ?></p>
         </div>
         <?php
     }
