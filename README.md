@@ -1,1 +1,7 @@
-## LiveWebinar wordpress plugin v0.0.1
+## LiveWebinar wordpress plugin 
+
+https://www.livewebinar.com/integrations/wordpress-plugin
+
+
+Wordpress 
+https://wordpress.org/plugins/livewebinar/
