@@ -8,18 +8,26 @@ $fields = get_post_meta($post->ID, '_livewebinar_event_post_details', true);
 $embed_room = get_post_meta($post->ID, '_livewebinar_event_post_embed_room', true);
 $livewebinar_event_id = get_post_meta($post->ID, '_livewebinar_event_post_event_id', true);
 $livewebinar_event_token = get_post_meta($post->ID, '_livewebinar_event_post_token', true);
+$current_user = wp_get_current_user();
+$can_request_api = \Livewebinar\Admin\Livewebinar_Api::can_request_api();
+$host_role_token = '';
+
 if (!empty($livewebinar_event_id) && is_numeric($livewebinar_event_id) && $livewebinar_event_id > 0) {
-    $livewebinar_widget = \Livewebinar\Admin\Livewebinar_Api::instance()->get_widget($livewebinar_event_id);
     $start_date = $fields['start_date'];
-    if (!\Livewebinar\Admin\Livewebinar_Api::instance()->is_error) {
-        try {
-            $widget_object = json_decode($livewebinar_widget, false, 512, JSON_THROW_ON_ERROR)->data;
-            $current_user = wp_get_current_user();
-        } catch (\JsonException $e) {
-            echo '<div class="error">' . esc_html(__('Error occurred while decoding JSON response from API:', 'livewebinar') . ' event-post.php' . $e->getMessage()) . '</div>';
+
+    if ($embed_room && $can_request_api) {
+        $livewebinar_widget = \Livewebinar\Admin\Livewebinar_Api::instance()->get_widget($livewebinar_event_id);
+
+        if (\Livewebinar\Admin\Livewebinar_Api::instance()->is_error) {
+            echo '<div class="error">' . esc_html(\Livewebinar\Admin\Livewebinar_Api::instance()->error_message) . '</div>';
+        } else {
+            try {
+                $widget_object = json_decode($livewebinar_widget, false, 512, JSON_THROW_ON_ERROR)->data;
+                $host_role_token = $widget_object->roles->host ?? '';
+            } catch (\JsonException $e) {
+                echo '<div class="error">' . esc_html(__('Error occurred while decoding JSON response from API:', 'livewebinar') . ' event-post.php' . $e->getMessage()) . '</div>';
+            }
         }
-    } else {
-        echo '<div class="error">' . esc_html(\Livewebinar\Admin\Livewebinar_Api::instance()->error_message) . '</div>';
     }
 } else {
     $no_post = true;
@@ -29,16 +37,16 @@ $embed_code = ['html' => '', 'options' => '', 'url' => ''];
 if ($embed_room) {
     $embed_code = \Livewebinar\Includes\Widget::instance()->get_embed_code(
         $livewebinar_event_token,
-        current_user_can('administrator') ? ($widget_object->roles->host ?? '') : '',
+        $can_request_api ? $host_role_token : '',
         $current_user->nickname ?? '',
-        $current_user ? get_avatar_url($current_user->ID, 64) : '',
+        $current_user->ID ? get_avatar_url($current_user->ID, 64) : '',
         false !== $livewebinar_event_id ? $livewebinar_event_id : null
     );
 }
 
 $presenters = [];
 
-if (!empty($fields['presenters'])) {
+if ($can_request_api && !empty($fields['presenters'])) {
     foreach ($fields['presenters'] as $presenter_id) {
         $presenter = \Livewebinar\Admin\Livewebinar_Api::instance()->get_presenter($presenter_id);
         if (!\Livewebinar\Admin\Livewebinar_Api::instance()->is_error) {

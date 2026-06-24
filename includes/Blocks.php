@@ -33,6 +33,7 @@ class Blocks
 
         if (function_exists('register_block_type') && is_admin()) {
             add_action('init', [$this, 'register_scripts']);
+            add_action('enqueue_block_editor_assets', [$this, 'localize_block_editor_data']);
         }
 
         if (function_exists('register_block_type')) {
@@ -79,19 +80,33 @@ class Blocks
             ],
             LIVEWEBINAR_PLUGIN_VERSION
         );
+    }
 
-        wp_localize_script('livewebinar-blocks','livewebinar_blocks', [
-            'livewebinar_widgets' => $this->list_widgets(),
-            'livewebinar_images' => $this->list_images(),
-            'title_label' => __('Title (optional)', 'livewebinar'),
-            'title_placeholder' => __('Title', 'livewebinar'),
-            'selected_room_label' => __('Selected room', 'livewebinar'),
-            'select_one_option' => __('--- select one ---', 'livewebinar'),
-            'show_join_link_label' => __('Show join link', 'livewebinar'),
-            'show_link_only_label' => __('Show link only', 'livewebinar'),
-            'select_image_label' => __('Select image', 'livewebinar'),
-            'caption_label' => __('Caption (optional)', 'livewebinar'),
-            'caption_placeholder' => __('Caption', 'livewebinar'),
+    /**
+     * @return void
+     */
+    public function localize_block_editor_data(): void
+    {
+        $widgets = [];
+        $images = [];
+
+        if (Livewebinar_Api::can_request_api()) {
+            $widgets = $this->list_widgets();
+            $images = $this->list_images();
+        }
+
+        wp_localize_script('livewebinar-blocks', 'livewebinar_blocks', [
+            'livewebinar_widgets'   => $widgets,
+            'livewebinar_images'    => $images,
+            'title_label'           => __('Title (optional)', 'livewebinar'),
+            'title_placeholder'     => __('Title', 'livewebinar'),
+            'selected_room_label'   => __('Selected room', 'livewebinar'),
+            'select_one_option'     => __('--- select one ---', 'livewebinar'),
+            'show_join_link_label'  => __('Show join link', 'livewebinar'),
+            'show_link_only_label'  => __('Show link only', 'livewebinar'),
+            'select_image_label'    => __('Select image', 'livewebinar'),
+            'caption_label'         => __('Caption (optional)', 'livewebinar'),
+            'caption_placeholder'   => __('Caption', 'livewebinar'),
         ]);
     }
 
@@ -216,7 +231,7 @@ class Blocks
     {
         $result = [];
 
-        if ( is_admin() ) {
+        if ( Livewebinar_Api::can_request_api() ) {
             $widgets = Livewebinar_Api::instance()->list_widgets();
             $widgetsObj = json_decode($widgets);
 
@@ -243,7 +258,7 @@ class Blocks
         $images = null;
         $result = [];
 
-        if ( is_admin() ) {
+        if ( Livewebinar_Api::can_request_api() ) {
             $images = Livewebinar_Api::instance()->list_images();
         }
 

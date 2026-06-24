@@ -38,8 +38,11 @@ class Bootstrap
             }
         );
 
-        new Settings();
-        Livewebinar_Api::instance();
+        if (is_admin()) {
+            new Settings();
+            Livewebinar_Api::instance();
+        }
+
         Shortcodes::instance();
         Blocks::instance();
         Event_Post::instance();

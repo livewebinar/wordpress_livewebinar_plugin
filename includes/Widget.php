@@ -40,25 +40,29 @@ class Widget
     public function embed_room($attributes)
     {
         if (!empty($attributes['widget_id'])) {
-            $widget = Livewebinar_Api::instance()->get_widget((int)$attributes['widget_id']);
-            if (!Livewebinar_Api::instance()->is_error) {
-                try {
-                    $widget_object = json_decode($widget, false, 512, JSON_THROW_ON_ERROR);
-                    $current_user = wp_get_current_user();
-                    $token = $widget_object->data->token;
+            if (Livewebinar_Api::can_request_api()) {
+                $widget = Livewebinar_Api::instance()->get_widget((int)$attributes['widget_id']);
+                if (!Livewebinar_Api::instance()->is_error) {
+                    try {
+                        $widget_object = json_decode($widget, false, 512, JSON_THROW_ON_ERROR);
+                        $current_user = wp_get_current_user();
+                        $token = $widget_object->data->token;
 
-                    $embed_code = $this->get_embed_code(
-                        $token,
-                        current_user_can('administrator') ? $widget_object->data->roles->host : '',
-                        $current_user->nickname ?? '',
-                        $current_user ? get_avatar_url($current_user->ID, 64) : '',
-                        $attributes['widget_id']
-                    );
-                } catch (\JsonException $e) {
-                    $error_message = __('Error occurred, make sure you have selected proper widget.', 'livewebinar');
+                        $embed_code = $this->get_embed_code(
+                            $token,
+                            $widget_object->data->roles->host ?? '',
+                            $current_user->nickname ?? '',
+                            $current_user->ID ? get_avatar_url($current_user->ID, 64) : '',
+                            $attributes['widget_id']
+                        );
+                    } catch (\JsonException $e) {
+                        $error_message = __('Error occurred, make sure you have selected proper widget.', 'livewebinar');
+                    }
+                } else {
+                    $error_message = Livewebinar_Api::instance()->error_message;
                 }
             } else {
-                $error_message = Livewebinar_Api::instance()->error_message;
+                $error_message = __('LiveWebinar embed data is available only from saved event posts on the public site.', 'livewebinar');
             }
         } else {
             $error_message = __('No widget selected', 'livewebinar');
@@ -131,16 +135,20 @@ class Widget
     public function room_info($attributes)
     {
         if (!empty($attributes['widget_id'])) {
-            if (!Livewebinar_Api::instance()->is_error) {
+            if (Livewebinar_Api::can_request_api()) {
                 $widget = Livewebinar_Api::instance()->get_widget((int) $attributes['widget_id']);
-                try {
-                    $widget_object = json_decode($widget, false, 512, JSON_THROW_ON_ERROR);
-                    $widget_data = $widget_object->data;
-                } catch (\JsonException $e) {
-                    $error_message = __('Error occurred, make sure you have selected proper widget.', 'livewebinar');
+                if (!Livewebinar_Api::instance()->is_error) {
+                    try {
+                        $widget_object = json_decode($widget, false, 512, JSON_THROW_ON_ERROR);
+                        $widget_data = $widget_object->data;
+                    } catch (\JsonException $e) {
+                        $error_message = __('Error occurred, make sure you have selected proper widget.', 'livewebinar');
+                    }
+                } else {
+                    $error_message = Livewebinar_Api::instance()->error_message;
                 }
             } else {
-                $error_message = Livewebinar_Api::instance()->error_message;
+                $error_message = __('LiveWebinar room info is available only in the WordPress admin area.', 'livewebinar');
             }
         } else {
             $error_message = __('No widget selected', 'livewebinar');

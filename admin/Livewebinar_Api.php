@@ -39,11 +39,14 @@ class Livewebinar_Api
     {
         if (is_null(self::$_instance)) {
             self::$_instance = new self();
-        } else {
-            self::$_instance->refreshToken();
         }
 
         return self::$_instance;
+    }
+
+    public static function can_request_api(): bool
+    {
+        return is_user_logged_in() && current_user_can('manage_options');
     }
 
     public function __construct()
@@ -63,9 +66,6 @@ class Livewebinar_Api
 
         try {
             $this->token_obj = get_option('livewebinar_token', null);
-
-            $this->refreshToken();
-
             $this->token = $this->token_obj->access_token ?? null;
         } catch (\Exception $e) {
             $this->token = null;
@@ -85,9 +85,39 @@ class Livewebinar_Api
     {
         $this->reset_properties();
 
+        if (!self::can_request_api()) {
+            $this->is_error = true;
+            $this->error_message = __('LiveWebinar API requests are available only to site administrators.', 'livewebinar');
+
+            return false;
+        }
+
+        $is_auth_request = 'auth/login' === ltrim($path, '/');
+
+        if (!$is_auth_request) {
+            $this->refreshToken();
+
+            if ($this->is_error || empty($this->token)) {
+                if (empty($this->error_message)) {
+                    $this->error_message = __('LiveWebinar API token is not available. Please verify the plugin credentials.', 'livewebinar');
+                }
+
+                $this->is_error = true;
+
+                return false;
+            }
+
+            $this->reset_properties();
+        }
+
         if (!isset($params['headers']) || !is_array($params['headers'])) {
             $params['headers'] = [];
         }
+
+        if (!$is_auth_request && isset($params['headers']['Authorization'])) {
+            $params['headers']['Authorization'] = 'Bearer ' . $this->token;
+        }
+
         $params['headers']['X-Livewebinar-Plugin-Version'] = LIVEWEBINAR_PLUGIN_VERSION;
 
         if ($this->is_auth_locked()) {
@@ -202,10 +232,17 @@ class Livewebinar_Api
     {
         check_ajax_referer('_nonce_livewebinar_security', 'security');
 
+        if (!self::can_request_api()) {
+            wp_send_json_error(__('You are not allowed to test this API connection.', 'livewebinar'), 403);
+        }
+
+        $this->refreshToken();
+
         if ($this->token && !$this->is_error) {
             wp_send_json(__('API connection established properly!', 'livewebinar'));
         } else {
-            wp_send_json(Livewebinar_Api . php__('Error occured: ', 'livewebinar') . $this->error_message);
+            $error_message = $this->error_message ?: __('API token is not available. Please verify the plugin credentials.', 'livewebinar');
+            wp_send_json(__('Error occurred: ', 'livewebinar') . $error_message);
         }
         wp_die();
     }
@@ -216,6 +253,10 @@ class Livewebinar_Api
     public function clear_api_credentials(): void
     {
         check_ajax_referer('_nonce_livewebinar_security', 'security');
+
+        if (!self::can_request_api()) {
+            wp_send_json_error(__('You are not allowed to clear API credentials.', 'livewebinar'), 403);
+        }
 
         delete_option('livewebinar_client_id');
         delete_option('livewebinar_client_secret');
@@ -645,10 +686,10 @@ class Livewebinar_Api
             $error_message = $this->array_search_error_recursive($data, $code);
 
             if (empty($error_message)) {
-                $error_message = Livewebinar_Api . php__('Could not find error message, original response: ', 'livewebinar') . $json_string;
+                $error_message = __('Could not find error message, original response: ', 'livewebinar') . $json_string;
             }
         } catch (JsonException $e) {
-            $error_message = Livewebinar_Api . php__('JSON decode error: ', 'livewebinar') . $e->getMessage() . ' | ' . __('Original response: ', 'livewebinar') . $json_string;
+            $error_message = __('JSON decode error: ', 'livewebinar') . $e->getMessage() . ' | ' . __('Original response: ', 'livewebinar') . $json_string;
         }
 
         return $error_message;
@@ -762,6 +803,17 @@ class Livewebinar_Api
      */
     private function refreshToken(): void
     {
+        if (!self::can_request_api()) {
+            return;
+        }
+
+        if (empty($this->client_id) || empty($this->client_secret)) {
+            $this->token = null;
+            $this->token_obj = null;
+
+            return;
+        }
+
         if ($this->is_auth_locked()) {
             return;
         }
@@ -788,7 +840,7 @@ class Livewebinar_Api
     {
         ?>
         <div class="error notice">
-            <p><?php esc_html(Livewebinar_Api . php__('Livewebinar error: ', 'livewebinar') . $this->admin_notice_error_message); ?></p>
+            <p><?php echo esc_html(__('Livewebinar error: ', 'livewebinar') . $this->admin_notice_error_message); ?></p>
         </div>
         <?php
     }

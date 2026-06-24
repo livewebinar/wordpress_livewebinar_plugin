@@ -16,6 +16,11 @@ class Settings
     public function remove_log_file(): void
     {
         check_ajax_referer( '_nonce_livewebinar_security', 'security' );
+
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(__('You are not allowed to remove LiveWebinar log files.', 'livewebinar'), 403);
+        }
+
         $filename = sanitize_text_field(filter_input(INPUT_POST, 'filename'));
 
         if (in_array($filename, [LIVEWEBINAR_PLUGIN_RESPONSE_LOG_FILENAME, LIVEWEBINAR_PLUGIN_ERROR_LOG_FILENAME], true)

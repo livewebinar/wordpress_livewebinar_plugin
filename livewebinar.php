@@ -9,7 +9,7 @@
  * Plugin Name: LiveWebinar
  * Plugin URI: https://www.livewebinar.com/
  * Description: Webinar Software. Best Platform for Webinars - LiveWebinar.com
- * Version: 2.2.0
+ * Version: 2.3.0
  * Requires at least: 5.8.4
  * Requires PHP: 7.4
  * Author: RTCLab <admin@rtclab.com>
@@ -37,14 +37,32 @@ const LIVEWEBINAR_PLUGIN_RESPONSE_LOG_FILENAME = 'response_log.log';
 const LIVEWEBINAR_PLUGIN_ERROR_LOG_FILENAME = 'error_log.log';
 define('LIVEWEBINAR_PLUGIN_LANGUAGE_PATH', trailingslashit(basename(LIVEWEBINAR_PLUGIN_DIR_PATH)) . 'i18n/');
 
-const LIVEWEBINAR_PLUGIN_VERSION = '2.2.0';
+const LIVEWEBINAR_PLUGIN_VERSION = '2.3.0';
 
 require_once(LIVEWEBINAR_PLUGIN_INCLUDES_PATH . '/Bootstrap.php');
 
 function check_plugin_version(): void
 {
+    if (!current_user_can('manage_options')) {
+        return;
+    }
+
     $current_version = LIVEWEBINAR_PLUGIN_VERSION;
-    $latest_version = file_get_contents('https://app.livewebinar.com/wordpress_plugin_version');
+    $latest_version = get_transient('livewebinar_latest_plugin_version');
+
+    if (false === $latest_version) {
+        $response = wp_remote_get('https://app.livewebinar.com/wordpress_plugin_version', [
+            'timeout' => 3,
+        ]);
+
+        if (is_wp_error($response)) {
+            return;
+        }
+
+        $latest_version = trim(wp_remote_retrieve_body($response));
+        set_transient('livewebinar_latest_plugin_version', $latest_version, 12 * HOUR_IN_SECONDS);
+    }
+
     if ($latest_version && version_compare($current_version, $latest_version, '<')) {
         echo '<div class="notice notice-error"><p><strong style="color: red;">LiveWebinar Update Required:</strong> Please update your plugin to version ' . $latest_version . ' for compatibility.</p></div>';
     }

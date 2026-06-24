@@ -27,9 +27,13 @@ class Storage
     public function image($attributes)
     {
         if (!empty($attributes['image_id'])) {
-            $image = Livewebinar_Api::instance()->get_image($attributes['image_id']);
-            if (Livewebinar_Api::instance()->is_error) {
-                $error_message = Livewebinar_Api::instance()->error_message;
+            if (Livewebinar_Api::can_request_api()) {
+                $image = Livewebinar_Api::instance()->get_image($attributes['image_id']);
+                if (Livewebinar_Api::instance()->is_error) {
+                    $error_message = Livewebinar_Api::instance()->error_message;
+                }
+            } else {
+                $error_message = __('LiveWebinar storage images are available only in the WordPress admin area.', 'livewebinar');
             }
         } else {
             $error_message = __('No image selected', 'livewebinar');

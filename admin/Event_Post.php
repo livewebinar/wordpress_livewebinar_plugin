@@ -40,6 +40,10 @@ class Event_Post
         check_ajax_referer('_nonce_livewebinar_security', 'security');
 
         $post_id = (int) filter_input(INPUT_POST, 'post_id', FILTER_SANITIZE_NUMBER_INT);
+        if (!current_user_can('edit_post', $post_id)) {
+            wp_send_json_error(__('You are not allowed to access this event post.', 'livewebinar'), 403);
+        }
+
         $errors = nl2br(get_post_meta($post_id, '_livewebinar_event_post_errors', true));
         $meeting_token = get_post_meta($post_id, '_livewebinar_event_post_token', true);
         $meeting_url = get_post_meta($post_id, '_livewebinar_event_post_attendee_url', true);
@@ -201,6 +205,10 @@ class Event_Post
         $embed_room = empty(filter_input(INPUT_POST, 'embed_room')) ? 0 : 1;
         update_post_meta($post_id, '_livewebinar_event_post_embed_room', $embed_room);
 
+        if (!Livewebinar_Api::can_request_api()) {
+            return;
+        }
+
         $livewebinar_event_id = get_post_meta($post_id, '_livewebinar_event_post_event_id', true);
         $livewebinar_event_token = get_post_meta($post_id, '_livewebinar_event_post_token', true);
 
@@ -313,7 +321,7 @@ class Event_Post
         if (get_post_type($post_id) === $this->post_type) {
             $livewebinar_event_id = get_post_meta($post_id, '_livewebinar_event_post_event_id', true);
 
-            if (!empty($livewebinar_event_id) && is_numeric($livewebinar_event_id)) {
+            if (Livewebinar_Api::can_request_api() && !empty($livewebinar_event_id) && is_numeric($livewebinar_event_id)) {
                 $r = Livewebinar_Api::instance()->deactivate_widget(get_post($post_id), $livewebinar_event_id);
             }
         }

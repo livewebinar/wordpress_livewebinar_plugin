@@ -4,7 +4,7 @@ Donate link: https://www.livewebinar.com/pricing
 Tags: livewebinar, live webinar, webinar, video conference, online meetings, web conferencing
 Requires at least: 5.8.4
 Tested up to: 6.8.3
-Stable tag: 2.2.0
+Stable tag: 2.3.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
