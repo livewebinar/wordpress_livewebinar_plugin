@@ -476,7 +476,7 @@ class Livewebinar_Api
             'Content-Type' => 'application/x-www-form-urlencoded',
         ];
 
-        $url = 'forms?include=EmbedCode';
+        $url = 'forms?include=EmbedCode&limit=100';
 
         $this->send_request($url, self::METHOD_GET, ['headers' => $headers]);
 
