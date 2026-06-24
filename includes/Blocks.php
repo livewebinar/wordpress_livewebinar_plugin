@@ -110,6 +110,8 @@ class Blocks
             'embed_form_panel_label' => __('LiveWebinar panel', 'livewebinar'),
             'embed_form_enable_suffix' => __(' to use disabled forms.', 'livewebinar'),
             'embed_forms_url' => 'https://app.livewebinar.com/forms',
+            'embed_code_label' => __('Embed code', 'livewebinar'),
+            'embed_code_help' => __('You can edit this code before saving the post.', 'livewebinar'),
         ]);
     }
 

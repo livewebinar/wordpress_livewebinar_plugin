@@ -172,6 +172,14 @@ msgstr "panelu LiveWebinar"
 msgid " to use disabled forms."
 msgstr ", aby użyć wyłączonych formularzy."
 
+#: includes/Blocks.php:94
+msgid "Embed code"
+msgstr "Kod embed"
+
+#: includes/Blocks.php:95
+msgid "You can edit this code before saving the post."
+msgstr "Możesz edytować ten kod przed zapisaniem posta."
+
 #: includes/Blocks.php:102
 msgid "LiveWebinar - Embed room"
 msgstr "LiveWebinar - zagnieźdź pokój"

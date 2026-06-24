@@ -169,6 +169,14 @@ msgstr ""
 msgid " to use disabled forms."
 msgstr ""
 
+#: includes/Blocks.php:94
+msgid "Embed code"
+msgstr ""
+
+#: includes/Blocks.php:95
+msgid "You can edit this code before saving the post."
+msgstr ""
+
 #: includes/Blocks.php:102
 msgid "LiveWebinar - Embed room"
 msgstr ""

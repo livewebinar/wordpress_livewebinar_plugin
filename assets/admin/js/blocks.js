@@ -162,6 +162,7 @@ const { useEffect } = React;
             addSelect2('livewebinar-embed-form-select', properties, blockId, 'selectedForm');
             let titleAttr = properties.attributes.title;
             let selectedAttr = properties.attributes.selectedForm;
+            let embedCodeAttr = properties.attributes.embedCode || '';
 
             let titleLabel = el('label', {for: "lw-embed-form-title"}, livewebinar_blocks.title_label);
             let titleInput = el('input', {
@@ -205,6 +206,22 @@ const { useEffect } = React;
                 },
                 options);
             let selectWrapper = el('div', {class: 'livewebinar-form-group'}, selectLabel, select);
+            let embedCodeLabel = el('label', {for: 'lw-embed-form-code'}, livewebinar_blocks.embed_code_label);
+            let embedCodeTextarea = el('textarea', {
+                name: 'lw-embed-form-code',
+                class: 'livewebinar-embed-form-code',
+                rows: 12,
+                style: {
+                    width: '100%',
+                    fontFamily: 'monospace',
+                },
+                value: embedCodeAttr,
+                onChange: (event) => {
+                    properties.setAttributes({embedCode: event.target.value});
+                },
+            });
+            let embedCodeHelp = el('p', {class: 'description'}, livewebinar_blocks.embed_code_help);
+            let embedCodeWrapper = el('div', {class: 'livewebinar-form-group'}, embedCodeLabel, embedCodeTextarea, embedCodeHelp);
             let helper = el('p', {class: 'description'},
                 livewebinar_blocks.embed_form_enable_prefix,
                 el('a', {
@@ -215,7 +232,7 @@ const { useEffect } = React;
                 livewebinar_blocks.embed_form_enable_suffix
             );
 
-            return el('div', {id: blockId, class: 'lw-embed-form-wrapper livewebinar-wrapper'}, title, selectWrapper, helper);
+            return el('div', {id: blockId, class: 'lw-embed-form-wrapper livewebinar-wrapper'}, title, selectWrapper, embedCodeWrapper, helper);
         }
     });
 }());

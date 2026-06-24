@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add LiveWebinar embed form block.
 
 ### Changed
+- Allow editing saved embed form code after selecting a LiveWebinar form.
 - Limit Archiebot API requests to administrator-triggered plugin actions.
 - Render event post editor in the classic editor for WordPress 7 compatibility.
 
