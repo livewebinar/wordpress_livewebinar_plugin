@@ -476,7 +476,7 @@ class Livewebinar_Api
             'Content-Type' => 'application/x-www-form-urlencoded',
         ];
 
-        $url = 'forms';
+        $url = 'forms?include=EmbedCode';
 
         $this->send_request($url, self::METHOD_GET, ['headers' => $headers]);
 
@@ -518,106 +518,6 @@ class Livewebinar_Api
         $this->send_request($url, self::METHOD_GET, ['headers' => $headers]);
 
         return $this->string_result();
-    }
-
-    /**
-     * @return array
-     */
-    public function list_images(): array
-    {
-        $filtered = [];
-        $headers = [
-            'Accept' => 'application/vnd.archiebot.v1+json',
-            'Authorization' => 'Bearer ' . $this->token,
-            'Content-Type' => 'application/x-www-form-urlencoded',
-        ];
-
-        $url = 'storage?limit=2000';
-
-        $this->send_request($url, self::METHOD_GET, ['headers' => $headers]);
-
-        try {
-            $obj = json_decode($this->string_result(), true, 512, JSON_THROW_ON_ERROR);
-            if (array_key_exists('data', $obj)) {
-                $filtered = array_filter($obj['data'], static function ($element) {
-                    if (array_key_exists('file_extension', $element) &&
-                        array_key_exists('file_size', $element) &&
-                        7 * 1024 * 1024 > $element['file_size'] &&
-                        in_array($element['file_extension'], Livewebinar_File::$image_extensions, true)) {
-                        return true;
-                    }
-
-                    return false;
-                });
-            }
-        } catch (\Exception $e) {
-            if (get_option('livewebinar_enable_error_logs')) {
-                $log = fopen(LIVEWEBINAR_PLUGIN_LOGS_PATH . '/error_log.log', 'a');
-                fwrite($log, date('Y-m-d H:i:s ') . 'list images' . PHP_EOL);
-                fwrite($log, $e->getMessage() . PHP_EOL);
-                fclose($log);
-            }
-        }
-
-        return $filtered;
-    }
-
-    /**
-     * @param int $image_id
-     * @return Livewebinar_File
-     */
-    public function get_image(int $image_id): Livewebinar_File
-    {
-        if (1 > $image_id) {
-            return new Livewebinar_File(new \stdClass());
-        }
-
-        $key = 'livewebinar_get_image_' . $image_id;
-        $cached_data = get_transient($key);
-
-        if (false !== $cached_data) {
-            return $cached_data;
-        }
-
-        $headers = [
-            'Accept' => 'application/vnd.archiebot.v1+json',
-            'Authorization' => 'Bearer ' . $this->token,
-            'Content-Type' => 'application/x-www-form-urlencoded',
-        ];
-
-        $url = 'storage/' . $image_id;
-
-        $this->send_request($url, self::METHOD_GET, ['headers' => $headers]);
-
-        try {
-            $result = $this->string_result();
-
-            if ($this->is_error) {
-                delete_transient($key);
-                return new Livewebinar_File(new \stdClass());
-            }
-
-            $obj = json_decode($result, false, 512, JSON_THROW_ON_ERROR)->data;
-            $file = new Livewebinar_File($obj);
-
-            $cached_data = $file;
-
-            set_transient($key, $cached_data, 300);
-
-        } catch (\Exception $e) {
-
-            $cached_data = new Livewebinar_File(new \stdClass());
-            delete_transient($key);
-
-            if (get_option('livewebinar_enable_error_logs')) {
-                $log = fopen(LIVEWEBINAR_PLUGIN_LOGS_PATH . '/error_log.log', 'a');
-                fwrite($log, date('Y-m-d H:i:s ') . 'get image' . PHP_EOL);
-                fwrite($log, $e->getMessage() . PHP_EOL);
-                fclose($log);
-            }
-        }
-
-        return $cached_data;
     }
 
     /**

@@ -141,6 +141,10 @@ msgid "Selected room"
 msgstr "Wybrany pokój"
 
 #: includes/Blocks.php:86
+msgid "Selected form"
+msgstr "Wybrany formularz"
+
+#: includes/Blocks.php:86
 msgid "--- select one ---"
 msgstr "--- wybierz jeden ---"
 
@@ -153,16 +157,20 @@ msgid "Show link only"
 msgstr "Pokaż jedynie link"
 
 #: includes/Blocks.php:89
-msgid "Select image"
-msgstr "Wybierz obraz"
+msgid "embed disabled"
+msgstr "embed wyłączony"
 
 #: includes/Blocks.php:90
-msgid "Caption (optional)"
-msgstr "Podpis (opcjonalny)"
+msgid "Enable embed form in the "
+msgstr "Włącz embed formularza w "
 
 #: includes/Blocks.php:91
-msgid "Caption"
-msgstr "Podpis"
+msgid "LiveWebinar panel"
+msgstr "panelu LiveWebinar"
+
+#: includes/Blocks.php:92
+msgid " to use disabled forms."
+msgstr ", aby użyć wyłączonych formularzy."
 
 #: includes/Blocks.php:102
 msgid "LiveWebinar - Embed room"
@@ -180,21 +188,25 @@ msgstr "LiveWebinar - informacje o pokoju"
 msgid "Shows room info"
 msgstr "Pokazuje informacje o pokoju"
 
-#: includes/Blocks.php:152
-msgid "LiveWebinar - Image from storage"
-msgstr "LiveWebinar - Obraz"
+#: includes/Blocks.php:163
+msgid "LiveWebinar - Embed form"
+msgstr "LiveWebinar - zagnieźdź formularz"
 
-#: includes/Blocks.php:174
-msgid "Shows image from LiveWebinar storage"
-msgstr "Wyświetla obraz z LiveWebinar"
+#: includes/Blocks.php:179
+msgid "Embeds form"
+msgstr "Zagnieżdża formularz"
+
+#: includes/Blocks.php:273
+msgid "No form selected"
+msgstr "Nie wybrano formularza"
+
+#: includes/Blocks.php:275
+msgid "Selected form does not have embed enabled. Enable embed form in the LiveWebinar panel."
+msgstr "Wybrany formularz nie ma włączonego embedu. Włącz embed formularza w panelu LiveWebinar."
 
 #: includes/Bootstrap.php:64
 msgid "Hide"
 msgstr "Ukryj"
-
-#: includes/Storage.php:35
-msgid "No image selected"
-msgstr "Nie wybrano żadnego obrazu"
 
 #: includes/views/blocks/embed-room.php:54
 msgid "Open in new tab"

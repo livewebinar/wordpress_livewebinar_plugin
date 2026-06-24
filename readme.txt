@@ -1,9 +1,9 @@
 === LiveWebinar ===
 Contributors: livewebinar
 Donate link: https://www.livewebinar.com/pricing
-Tags: livewebinar, live webinar, webinar, video conference, online meetings, web conferencing
+Tags: livewebinar, live webinar, webinar, video conference, online meetings
 Requires at least: 5.8.4
-Tested up to: 6.8.3
+Tested up to: 7.0
 Stable tag: 2.3.0
 Requires PHP: 7.4
 License: GPLv2 or later

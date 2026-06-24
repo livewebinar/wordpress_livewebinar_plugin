@@ -15,11 +15,6 @@ button, input, optgroup, select, textarea {
     margin-top: 1px;
     margin-bottom: 1px;
 }
-img.livewebinar-image-storage-image {
-    object-fit: fill;
-    height: 100%;
-    width: 100%;
-}
 /*---------------*/
 /*blocks frontend*/
 td.bold {

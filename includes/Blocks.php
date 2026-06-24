@@ -78,7 +78,7 @@ class Blocks
                 'react',
                 'livewebinar-select2-js',
             ],
-            LIVEWEBINAR_PLUGIN_VERSION
+            LIVEWEBINAR_PLUGIN_VERSION . '.' . filemtime(LIVEWEBINAR_PLUGIN_DIR_PATH . 'assets/admin/js/blocks.js')
         );
     }
 
@@ -88,25 +88,28 @@ class Blocks
     public function localize_block_editor_data(): void
     {
         $widgets = [];
-        $images = [];
+        $forms = [];
 
         if (Livewebinar_Api::can_request_api()) {
             $widgets = $this->list_widgets();
-            $images = $this->list_images();
+            $forms = $this->list_forms();
         }
 
         wp_localize_script('livewebinar-blocks', 'livewebinar_blocks', [
             'livewebinar_widgets'   => $widgets,
-            'livewebinar_images'    => $images,
+            'livewebinar_forms'     => $forms,
             'title_label'           => __('Title (optional)', 'livewebinar'),
             'title_placeholder'     => __('Title', 'livewebinar'),
             'selected_room_label'   => __('Selected room', 'livewebinar'),
+            'selected_form_label'   => __('Selected form', 'livewebinar'),
             'select_one_option'     => __('--- select one ---', 'livewebinar'),
             'show_join_link_label'  => __('Show join link', 'livewebinar'),
             'show_link_only_label'  => __('Show link only', 'livewebinar'),
-            'select_image_label'    => __('Select image', 'livewebinar'),
-            'caption_label'         => __('Caption (optional)', 'livewebinar'),
-            'caption_placeholder'   => __('Caption', 'livewebinar'),
+            'embed_form_disabled_label' => __('embed disabled', 'livewebinar'),
+            'embed_form_enable_prefix' => __('Enable embed form in the ', 'livewebinar'),
+            'embed_form_panel_label' => __('LiveWebinar panel', 'livewebinar'),
+            'embed_form_enable_suffix' => __(' to use disabled forms.', 'livewebinar'),
+            'embed_forms_url' => 'https://app.livewebinar.com/forms',
         ]);
     }
 
@@ -165,35 +168,29 @@ class Blocks
             'render_callback' => [$this, 'render_room_info']
         ]);
 
-        register_block_type('livewebinar/image-storage', [
+        register_block_type('livewebinar/embed-form', [
             'apiVersion'      => 2,
-            'title'           => __('LiveWebinar - Image from storage', 'livewebinar'),
+            'title'           => __('LiveWebinar - Embed form', 'livewebinar'),
             'attributes'      => [
-                'selectedImage' => [
-                    'type'    => 'integer',
+                'selectedForm' => [
+                    'type' => 'integer',
                 ],
-                'title'       => [
+                'title'        => [
                     'type'    => 'string',
                     'default' => '',
                 ],
-                'caption'     => [
+                'embedCode'    => [
                     'type'    => 'string',
                     'default' => '',
-                ],
-                'width'       => [
-                    'type'    => 'number',
-                ],
-                'height'      => [
-                    'type'    => 'number',
                 ],
             ],
             'category'        => 'livewebinar-blocks',
-            'icon'            => 'format-image',
-            'description'     => __('Shows image from LiveWebinar storage', 'livewebinar'),
+            'icon'            => 'feedback',
+            'description'     => __('Embeds form', 'livewebinar'),
             'textdomain'      => 'livewebinar',
             'editor_script'   => 'livewebinar-blocks',
             'style'           => 'livewebinar-main-style',
-            'render_callback' => [$this, 'render_image_from_storage'],
+            'render_callback' => [$this, 'render_embed_form']
         ]);
     }
 
@@ -253,19 +250,23 @@ class Blocks
      *
      * @return array
      */
-    public function list_images(): array
+    public function list_forms(): array
     {
-        $images = null;
         $result = [];
 
-        if ( Livewebinar_Api::can_request_api() ) {
-            $images = Livewebinar_Api::instance()->list_images();
-        }
+        if (Livewebinar_Api::can_request_api()) {
+            $forms = Livewebinar_Api::instance()->list_forms();
+            $formsObj = json_decode($forms);
 
-        if ($images) {
-            foreach ($images as $image) {
-                $result[$image['id']]['name'] = $image['name'] . '.' . $image['file_extension'];
-                $result[$image['id']]['url'] = $image['url'];
+            if (isset($formsObj->data)) {
+                foreach ($formsObj->data as $form) {
+                    $embed_code = $form->EmbedCode->data->code ?? '';
+                    $result[$form->id] = [
+                        'name'           => $form->name,
+                        'has_embed_code' => !empty($embed_code),
+                        'embed_code'     => $embed_code,
+                    ];
+                }
             }
         }
 
@@ -302,29 +303,47 @@ class Blocks
      * @param $content
      * @return false|string
      */
-    public function render_image_from_storage(array $attributes, $content)
+    public function render_embed_form(array $attributes, $content)
     {
-        $shortcode_args = '';
-        if (isset($attributes['title']) && !empty($attributes['title'])) {
-            $shortcode_args .= ' title="' . $attributes['title'] . '"';
+        $embed_code = '';
+        if (!empty($attributes['embedCode'])) {
+            $embed_code = $this->prepare_embed_form_code($attributes['embedCode']);
         }
-        if (isset($attributes['selectedImage']) && !empty($attributes['selectedImage'])) {
-            $shortcode_args .= ' image_id="' . $attributes['selectedImage'] . '"';
-        }
-        if (isset($attributes['caption']) && !empty($attributes['caption'])) {
-            $shortcode_args .= ' caption="' . $attributes['caption'] . '"';
-        }
-        if (isset($attributes['width']) && !empty($attributes['width'])) {
-            $shortcode_args .= ' width="' . $attributes['width'] . '"';
-        }
-        if (isset($attributes['height']) && !empty($attributes['height'])) {
-            $shortcode_args .= ' height="' . $attributes['height'] . '"';
+
+        if (empty($attributes['selectedForm'])) {
+            $error_message = __('No form selected', 'livewebinar');
+        } elseif (empty($embed_code)) {
+            $error_message = __('Selected form does not have embed enabled. Enable embed form in the LiveWebinar panel.', 'livewebinar');
         }
 
         ob_start();
 
-        echo do_shortcode('[livewebinar_image_storage' . $shortcode_args . ']');
+        require(LIVEWEBINAR_PLUGIN_VIEWS_PATH . '/blocks/embed-form.php');
 
         return ob_get_clean();
+    }
+
+    /**
+     * @param string $embed_code
+     * @return string
+     */
+    private function prepare_embed_form_code(string $embed_code): string
+    {
+        $container_id = wp_unique_id('livewebinar-embed-form-');
+
+        $embed_code = str_replace(
+            '<div id="FormContainer"></div>',
+            '<div id="' . esc_attr($container_id) . '"></div>',
+            $embed_code
+        );
+
+        return (string) preg_replace_callback(
+            "/('_form_containerID'\\s*:\\s*)'[^']*'/",
+            static function ($matches) use ($container_id) {
+                return $matches[1] . "'" . esc_js($container_id) . "'";
+            },
+            $embed_code,
+            1
+        );
     }
 }

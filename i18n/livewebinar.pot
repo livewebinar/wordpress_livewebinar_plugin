@@ -138,6 +138,10 @@ msgid "Selected room"
 msgstr ""
 
 #: includes/Blocks.php:86
+msgid "Selected form"
+msgstr ""
+
+#: includes/Blocks.php:86
 msgid "--- select one ---"
 msgstr ""
 
@@ -150,15 +154,19 @@ msgid "Show link only"
 msgstr ""
 
 #: includes/Blocks.php:89
-msgid "Select image"
+msgid "embed disabled"
 msgstr ""
 
 #: includes/Blocks.php:90
-msgid "Caption (optional)"
+msgid "Enable embed form in the "
 msgstr ""
 
 #: includes/Blocks.php:91
-msgid "Caption"
+msgid "LiveWebinar panel"
+msgstr ""
+
+#: includes/Blocks.php:92
+msgid " to use disabled forms."
 msgstr ""
 
 #: includes/Blocks.php:102
@@ -177,20 +185,24 @@ msgstr ""
 msgid "Shows room info"
 msgstr ""
 
-#: includes/Blocks.php:152
-msgid "LiveWebinar - Image from storage"
+#: includes/Blocks.php:163
+msgid "LiveWebinar - Embed form"
 msgstr ""
 
-#: includes/Blocks.php:174
-msgid "Shows image from LiveWebinar storage"
+#: includes/Blocks.php:179
+msgid "Embeds form"
+msgstr ""
+
+#: includes/Blocks.php:273
+msgid "No form selected"
+msgstr ""
+
+#: includes/Blocks.php:275
+msgid "Selected form does not have embed enabled. Enable embed form in the LiveWebinar panel."
 msgstr ""
 
 #: includes/Bootstrap.php:64
 msgid "Hide"
-msgstr ""
-
-#: includes/Storage.php:35
-msgid "No image selected"
 msgstr ""
 
 #: includes/views/blocks/embed-room.php:54

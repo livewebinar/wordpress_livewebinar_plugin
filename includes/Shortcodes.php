@@ -23,12 +23,10 @@ class Shortcodes
     public function __construct()
     {
         $widgets = Widget::instance();
-        $storage = Storage::instance();
 
         $this->shortcodes = [
             'livewebinar_embed_room' => [$widgets, 'embed_room'],
             'livewebinar_room_info' => [$widgets, 'room_info'],
-            'livewebinar_image_storage' => [$storage, 'image'],
         ];
 
         $this->init_shortcodes();

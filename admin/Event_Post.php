@@ -28,6 +28,7 @@ class Event_Post
         add_action('add_meta_boxes', [$this, 'add_metaboxes']);
         add_action('save_post_' . $this->post_type, [$this, 'save_post'], 10, 2);
         add_filter('single_template', [$this, 'render_post'], 20);
+        add_filter('use_block_editor_for_post_type', [$this, 'disable_block_editor'], 10, 2);
         add_action('before_delete_post', [$this, 'delete_post']);
         add_action('wp_ajax_get_post_data', [$this, 'get_post_data']);
     }
@@ -52,6 +53,20 @@ class Event_Post
         wp_send_json(['errors' => $errors, 'token' => $meeting_token, 'url' => $meeting_url, 'event_name' => $event_name]);
 
         wp_die();
+    }
+
+    /**
+     * @param bool $use_block_editor
+     * @param string $post_type
+     * @return bool
+     */
+    public function disable_block_editor(bool $use_block_editor, string $post_type): bool
+    {
+        if ($this->post_type === $post_type) {
+            return false;
+        }
+
+        return $use_block_editor;
     }
 
     /**
